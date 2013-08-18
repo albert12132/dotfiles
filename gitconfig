@@ -1,0 +1,16 @@
+[user]
+	name = Albert Wu
+	email = albert12132@gmail.com
+[core]
+	editor = vim
+[color]
+    ui = auto
+	status = auto
+	diff = auto
+	branch = auto
+[color "status"]
+	added = white
+	changed = yellow
+	untracked = yellow
+[format]
+	pretty = format:%C(yellow)%h%Creset %C(white)%s%Creset\n%cd, %an\n
