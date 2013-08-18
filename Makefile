@@ -8,6 +8,7 @@ all:
 	make vim
 	make git
 	make xmonad
+	cat programs
 
 vim:
 	ln -s $(PWD)/vimrc $(HOME)/.vimrc
