@@ -3,6 +3,12 @@ PWD=$$(pwd)
 
 .PHONY: vim bash git xmonad
 
+all:
+	make bash
+	make vim
+	make git
+	make xmonad
+
 vim:
 	ln -s $(PWD)/vimrc $(HOME)/.vimrc
 	ln -s $(PWD)/vim $(HOME)/.vim
@@ -10,7 +16,9 @@ vim:
 	cd vim/bundle ; \
 	for plugin in $$(cat ../plugins); do \
 		git clone $$plugin ; \
-	done \
+	done; \
+	cd vimproc.vim; make
+
 
 bash:
 	ln -s $(PWD)/bashrc $(HOME)/.bashrc
