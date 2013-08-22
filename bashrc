@@ -118,7 +118,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 alias emacs="emacs -nw"
 alias open="xdg-open >/dev/null 2> /dev/null"
 alias lock="gnome-screensaver-command --lock"
-alias python3="python3.2"
 
 function chrome() {
     cd /tmp

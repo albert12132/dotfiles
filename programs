@@ -1,21 +1,22 @@
 Essentials
 ==========
-vim
-chrome
-git
-python3
-latex
-dropbox
+* vim
+* chrome
+* git
+* python3
+* latex
+* dropbox
+* xmonad
 
 Programming
 ===========
-java (jdk and jre)
-node
-django
-android sdk
+* java (jdk and jre)
+* node
+* django
+* android sdk
 
 Research
 ========
-numpy
-scipy
-matplotlib
+* numpy
+* scipy
+* matplotlib
