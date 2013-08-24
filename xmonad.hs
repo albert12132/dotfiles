@@ -6,6 +6,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Prompt.Shell
 import XMonad.Prompt
 import XMonad.Actions.CycleWS
+import XMonad.Hooks.EwmhDesktops
 
 myLayout = avoidStruts (tiled ||| Mirror tiled ||| noBorders Full)
     where
@@ -35,6 +36,7 @@ main = xmonad $ gnomeConfig {
     manageHook = myManageHook
     , normalBorderColor = "#000000"
     , focusedBorderColor = "#00FF00"
+    , handleEventHook = fullscreenEventHook
 
     , layoutHook = myLayout
     }
