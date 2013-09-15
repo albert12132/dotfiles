@@ -129,4 +129,5 @@ function chrome() {
 alias cs61a="ssh cs61a-te@star.cs.berkeley.edu"
 alias cs61a-git="ssh cs61a-te@hive12.cs.berkeley.edu"
 alias master="ssh cs61a@torus.cs.berkeley.edu"
+alias master-git="ssh cs61a@hive12.cs.berkeley.edu"
 

@@ -136,6 +136,7 @@ nnoremap <space>    zz
 nnoremap n          m'nzz
 nnoremap N          m'Nzz
 
+
 " Omni Completion
 inoremap <leader><Tab>          <C-x><C-o>
 
@@ -155,44 +156,45 @@ cnoreabbrev SH     sh
 " Unite                                                              "
 "--------------------------------------------------------------------"
 
-let g:unite_winwidth = 25
+let g:unite_winwidth = 30
 let g:unite_winheight = 10
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>fo         :Unite -start-insert -vertical file<CR>
-nnoremap <leader>fi         :Unite -start-insert -vertical -default-action=split file<CR>
-nnoremap <leader>fs         :Unite -start-insert -vertical -default-action=vsplit file<CR>
 
-nnoremap <leader>ro          :Unite -start-insert file_rec/async:!<CR>
-nnoremap <leader>ri          :Unite -start-insert -default-action=split file_rec/async:!<CR>
-nnoremap <leader>rs          :Unite -start-insert -default-action=vsplit file_rec/async:!<CR>
+nnoremap <leader>r          :Unite -start-insert file_rec/async:!<CR>
 
 nnoremap <leader>m          :Unite -start-insert -horizontal file_mru<CR>
 nnoremap <leader>b          :Unite buffer<CR>
 nnoremap <leader>g          :Unite grep:.<CR>
 nnoremap <leader>y          :Unite history/yank<CR>
-nnoremap <leader>cc         :Unite bookmark<CR>
-nnoremap <leader>ca         :UniteBookmarkAdd<CR><CR><CR>
 
 " Unite-outline
-nnoremap <leader>o :<C-u>Unite -start-insert -horizontal outline<CR>
+nnoremap <leader>o :<C-u>Unite -start-insert outline<CR>
 
 "--------------------------------------------------------------------"
 " Conque                                                             "
 "--------------------------------------------------------------------"
 
+" Conque startup configs
+function! MyConqueTerm(term)
+    " Default size of 10 rows
+    resize 10
+    " Remove whitespace indicators
+    setlocal nolist
+    " Remove colorcolumn
+    setlocal colorcolumn=
+endfunction
+call conque_term#register_function('after_startup', 'MyConqueTerm')
+
 nnoremap <leader>sh     :ConqueTermSplit 
+let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
+let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
+
 
 "--------------------------------------------------------------------"
-" Fugitive                                                           "
+" NERDTree                                                           "
 "--------------------------------------------------------------------"
 
-cnoreabbrev Gadd       Git add %
-cnoreabbrev Gpush      Git push origin master
-
-"--------------------------------------------------------------------"
-" Scratch                                                            "
-"--------------------------------------------------------------------"
-
-nnoremap _s         :Sscratch<CR>
-nnoremap <Bar>s     :vsplit<CR><C-w>l:Scratch<CR>
+nmap <tab> :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1     " Show bookmarks by default
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
