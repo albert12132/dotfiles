@@ -153,7 +153,7 @@ cnoreabbrev sH     sh
 cnoreabbrev SH     sh
 
 "--------------------------------------------------------------------"
-" Unite                                                              "
+" "Unite"                                                            "
 "--------------------------------------------------------------------"
 
 let g:unite_winwidth = 30
@@ -172,7 +172,7 @@ nnoremap <leader>y          :Unite history/yank<CR>
 nnoremap <leader>o :<C-u>Unite -start-insert outline<CR>
 
 "--------------------------------------------------------------------"
-" Conque                                                             "
+" "Conque"                                                           "
 "--------------------------------------------------------------------"
 
 " Conque startup configs
@@ -192,7 +192,7 @@ let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
 
 
 "--------------------------------------------------------------------"
-" NERDTree                                                           "
+" "NERDTree"                                                         "
 "--------------------------------------------------------------------"
 
 nmap <tab> :NERDTreeToggle<CR>
