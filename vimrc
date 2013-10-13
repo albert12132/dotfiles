@@ -60,7 +60,7 @@ set statusline=%.40F%=%m\ %Y\ Line:\ %3l/%L[%3p%%]
 " Navigation
 set nu                " Set line numbering
 set scrolloff=5       " keep at least 5 lines above/below
-set mouse=a           " Enable mouse usage (all modes)
+set mouse=i           " Enable mouse usage (all modes)
 set mousehide         " Hide the mouse when typing
 set cursorline        " Highlights the cursor line
 
@@ -119,8 +119,9 @@ nnoremap -          <C-W>-
 " Change cursor to move along rows, not lines. (useful for long lines)
 nnoremap j          gj
 nnoremap k          gk
-nnoremap 0          g0
+nnoremap 0          g^
 nnoremap $          g$
+nnoremap ^          g0
 
 nnoremap {          <C-u>
 nnoremap }          <C-d>
@@ -137,8 +138,24 @@ nnoremap n          m'nzz
 nnoremap N          m'Nzz
 
 
+"--------------------------------------------------------------------"
+" "Insert Mode Bindings"                                             "
+"--------------------------------------------------------------------"
+
 " Omni Completion
 inoremap <leader><Tab>          <C-x><C-o>
+
+" Easier window switching keys
+inoremap <C-j>  <esc><C-w>j
+inoremap <C-k>  <esc><C-w>k
+inoremap <C-l>  <esc><C-w>l
+inoremap <C-h>  <esc><C-w>h
+
+"--------------------------------------------------------------------"
+" "Miscellaneous"                                                    "
+"--------------------------------------------------------------------"
+
+au BufRead,BufNewFile *.md set filetype=markdown
 
 "--------------------------------------------------------------------"
 " "Command Mode Bindings"                                            "
@@ -148,9 +165,14 @@ inoremap <leader><Tab>          <C-x><C-o>
 cnoreabbrev W      w
 cnoreabbrev Q      q
 cnoreabbrev X      x
+cnoreabbrev sh     sh
 cnoreabbrev Sh     sh
 cnoreabbrev sH     sh
 cnoreabbrev SH     sh
+
+" Fugitive
+cnoreabbrev Gpush  Git push
+cnoreabbrev Gpull  Git pull
 
 "--------------------------------------------------------------------"
 " "Unite"                                                            "
@@ -163,7 +185,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 nnoremap <leader>r          :Unite -start-insert file_rec/async:!<CR>
 
-nnoremap <leader>m          :Unite -start-insert -horizontal file_mru<CR>
+nnoremap <leader>m          :Unite file_mru<CR>
 nnoremap <leader>b          :Unite buffer<CR>
 nnoremap <leader>g          :Unite grep:.<CR>
 nnoremap <leader>y          :Unite history/yank<CR>
@@ -189,6 +211,7 @@ call conque_term#register_function('after_startup', 'MyConqueTerm')
 nnoremap <leader>sh     :ConqueTermSplit 
 let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
 let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
+let g:ConqueTerm_PromptRegex = '^>>>'
 
 
 "--------------------------------------------------------------------"
@@ -198,3 +221,12 @@ let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
 nmap <tab> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1     " Show bookmarks by default
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"--------------------------------------------------------------------"
+" "Indent-Guidelines"                                                "
+"--------------------------------------------------------------------"
+
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+nmap <leader>i      :IndentGuidesToggle<cr>

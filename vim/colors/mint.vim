@@ -63,8 +63,8 @@ hi DiffChange   ctermfg=black   ctermbg=32
 hi DiffText     ctermfg=black   ctermbg=232
 
 " Pmenu (omni completion)
-hi Pmenu        ctermbg=black   ctermfg=120
-hi PmenuSel     ctermbg=238     ctermfg=120
+hi Pmenu        ctermbg=120   ctermfg=234
+hi PmenuSel     ctermbg=71     ctermfg=234 cterm=bold
 hi PmenuThumb   ctermbg=71      ctermfg=71
 
 "--------------------------------------------------------------------"
@@ -131,3 +131,11 @@ hi markdownCodeBlock ctermfg=254
 hi markdownCode ctermfg=41
 hi markdownListMarker ctermfg=254
 hi markdownOrderedListMarker ctermfg=254
+
+"--------------------------------------------------------------------"
+" Plugins                                                            "
+"--------------------------------------------------------------------"
+
+hi EasyMotionTargetDefault cterm=bold ctermfg=35
+hi EasyMotionShadeDefault ctermfg=242
+

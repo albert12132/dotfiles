@@ -1,4 +1,4 @@
-import XMonad
+import XMonad hiding ( (|||) )
 import XMonad.Config.Gnome
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
@@ -7,6 +7,7 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.LayoutCombinators
 
 myLayout = avoidStruts (tiled ||| Mirror tiled ||| noBorders Full)
     where
@@ -41,10 +42,12 @@ main = xmonad $ gnomeConfig {
     , layoutHook = myLayout
     }
     `additionalKeysP`
-    [ ("M-o", spawn "google-chrome")
-    , ("M-i", spawn "google-chrome --incognito")
-    , ("M-b", sendMessage ToggleStruts)
-    , ("M-m", spawn "rhythmbox")
-    , ("M-<Tab>", toggleWS)
+    [ ("M-o", spawn "google-chrome")             -- chrome
+    , ("M-i", spawn "google-chrome --incognito") -- incognito chrome
+    , ("M-b", sendMessage ToggleStruts)          -- toggle menubar
+    , ("M-n", spawn "nautilus")                  -- nautilus
+    , ("M-m", spawn "rhythmbox")                 -- music player
+    , ("M-<Tab>", toggleWS)                      -- switch to prev ws
+    , ("M-f", sendMessage $ JumpToLayout "Full") -- jump to fullscreen
     -- , ("M-s", shellPrompt myXPConfig)
     ]
