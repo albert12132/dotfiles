@@ -116,9 +116,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # Aliases
 alias hw="cd ~/Desktop/hw/fa13; ls"
-alias emacs="emacs -nw"
 alias open="xdg-open >/dev/null 2> /dev/null"
-alias lock="gnome-screensaver-command --lock"
 
 function chrome() {
     cd /tmp

@@ -71,7 +71,7 @@ set incsearch         " Incremental search
 set hlsearch          " highlight searches
 set showmatch         " Show matching brackets.
 
-" Tabs
+" Tabs (spacing)
 set expandtab         " Use spaces instead of tabs
 set tabstop=4         " How many spaces a tab measures
 set shiftwidth=4      " Sets >> and << width
@@ -81,7 +81,7 @@ set listchars=trail:·,tab:››
 
 " Folding
 set foldenable        " Enables folds
-set foldcolumn=1      " Shows folds in a column
+" set foldcolumn=1      " Shows folds in a column
 set foldmethod=indent " Folds on indentation
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
@@ -93,6 +93,10 @@ set noswapfile        " Remove swap files
 " Change the <leader> key to ,
 let mapleader=","
 
+" External Pasting and Copying options
+set pastetoggle=<C-x> " Toggles pasting mode for external paste
+nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
+vnoremap <leader>s  :s/\s\+$//<CR>
 
 
 "--------------------------------------------------------------------"
@@ -137,19 +141,24 @@ nnoremap <space>    zz
 nnoremap n          m'nzz
 nnoremap N          m'Nzz
 
+" Tabs (navigation)
+nnoremap tt         :tabm 
+nnoremap tl         gt
+nnoremap th         gT
+nnoremap td         :tabclose<CR>
+
 
 "--------------------------------------------------------------------"
 " "Insert Mode Bindings"                                             "
 "--------------------------------------------------------------------"
 
-" Omni Completion
-inoremap <leader><Tab>          <C-x><C-o>
 
 " Easier window switching keys
 inoremap <C-j>  <esc><C-w>j
 inoremap <C-k>  <esc><C-w>k
 inoremap <C-l>  <esc><C-w>l
 inoremap <C-h>  <esc><C-w>h
+
 
 "--------------------------------------------------------------------"
 " "Miscellaneous"                                                    "
@@ -218,7 +227,7 @@ let g:ConqueTerm_PromptRegex = '^>>>'
 " "NERDTree"                                                         "
 "--------------------------------------------------------------------"
 
-nmap <tab> :NERDTreeToggle<CR>
+nmap <tab> :NERDTreeTabsToggle<CR>
 let NERDTreeShowBookmarks=1     " Show bookmarks by default
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 

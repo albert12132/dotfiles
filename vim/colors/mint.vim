@@ -24,6 +24,11 @@ hi LineNr       cterm=none  ctermfg=246 ctermbg=none
 hi ColorColumn  ctermbg=240
 hi VertSplit    cterm=bold  ctermfg=234 ctermbg=234
 
+" Tabs
+hi TabLineSel   cterm=bold  ctermfg=16 ctermbg=71
+hi TabLine      cterm=none  ctermfg=250 ctermbg=234
+hi TabLineFill  cterm=none  ctermbg=234
+
 " Status Line
 hi StatusLine   cterm=bold  ctermbg=71  ctermfg=16
 hi StatusLineNC cterm=none  ctermfg=250 ctermbg=234
@@ -118,7 +123,8 @@ hi PreProc  cterm=NONE  ctermfg=254
 
 " Python
 hi pythonFunction cterm=bold ctermfg=254
-hi pythonExceptions ctermfg=254
+hi pythonDecorator ctermfg=41
+hi pythonExceptions ctermfg=41
 
 " HTML
 hi htmlTagName ctermfg=42 cterm=bold
@@ -131,11 +137,4 @@ hi markdownCodeBlock ctermfg=254
 hi markdownCode ctermfg=41
 hi markdownListMarker ctermfg=254
 hi markdownOrderedListMarker ctermfg=254
-
-"--------------------------------------------------------------------"
-" Plugins                                                            "
-"--------------------------------------------------------------------"
-
-hi EasyMotionTargetDefault cterm=bold ctermfg=35
-hi EasyMotionShadeDefault ctermfg=242
 

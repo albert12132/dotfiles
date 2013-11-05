@@ -4,47 +4,48 @@
 
 hi clear
 
-set t_Co=8
+set t_Co=256
 
 let colors_name = "forest"
 
-" gVim colors
 " Normal should come first
-hi Normal       guifg=#eeeeee    guibg=#262626
-hi Cursor       guifg=bg         guibg=fg
-" hi lCursor     guifg=NONE     guibg=Cyan
+hi Normal       ctermfg=10  ctermbg=none
+hi Cursor       cterm=reverse
+hi CursorLine   term=none   cterm=none  ctermbg=238
+hi CursorColumn term=none   cterm=none  ctermbg=238
 
 " Window
-hi LineNr       ctermfg=brown
-hi Folded       ctermbg=darkgrey    ctermfg=green
-hi FoldColumn   ctermbg=none        ctermfg=white
-hi VertSplit    cterm=reverse
-hi ColorColumn  ctermbg=white       ctermfg=black
-hi CursorLine   term=none cterm=none
+hi LineNr       cterm=none ctermfg=3
+hi ColorColumn  ctermbg=240
+hi VertSplit    cterm=bold  ctermbg=234   ctermfg=234
+
+" Status Line
+hi StatusLine   cterm=bold  ctermbg=2   ctermfg=7
+hi StatusLineNC cterm=bold  ctermbg=234   ctermfg=7
+
+" Folds
+hi Folded       ctermbg=none    ctermfg=7
+hi FoldColumn   ctermbg=none        ctermfg=7
 
 " Search
 hi IncSearch    cterm=reverse
 hi Search       ctermfg=white ctermbg=darkgrey
 hi MatchParen   ctermfg=white ctermbg=black
 
-" Status Line
-hi StatusLine   cterm=NONE  ctermbg=green   ctermfg=black
-hi StatusLineNC cterm=bold  ctermbg=green   ctermfg=black
-
 " Errors
 hi ErrorMsg     ctermfg=White   ctermbg=red
 hi Error        ctermfg=White   ctermbg=Red
 hi WarningMsg   ctermfg=Red
 
-" Visual
-hi Visual       ctermbg=NONE            cterm=reverse
-hi VisualNOS    cterm=underline,bold
-
-hi Directory    ctermfg=DarkBlue
+" Misc
+hi Directory    cterm=bold  ctermfg=35
 hi ModeMsg      cterm=bold
 hi MoreMsg      ctermfg=DarkGreen
-hi NonText      ctermfg=brown
+hi NonText      ctermfg=3
+hi SpecialKey   ctermfg=246
 hi Question     ctermfg=DarkGreen
+hi Title        cterm=bold,underline    ctermfg=35
+hi Underlined   cterm=bold,underline    ctermfg=41
 
 " Diff
 hi DiffAdd      ctermfg=black   ctermbg=darkgreen
@@ -52,24 +53,25 @@ hi DiffDelete   ctermfg=black   ctermbg=darkred
 hi DiffChange   ctermfg=black   ctermbg=darkblue
 hi DiffText     ctermfg=black   ctermbg=darkblue
 
-" HTML
-hi Title        cterm=bold,underline    ctermfg=4
-hi Underlined   cterm=bold,underline    ctermfg=4
+" Pmenu (omni completion)
+hi Pmenu        ctermbg=120   ctermfg=234
+hi PmenuSel     ctermbg=71     ctermfg=234 cterm=bold
+hi PmenuThumb   ctermbg=71      ctermfg=71
 
-"""""""""""""""""""""""
-" SYNTAX HIGHLIGHTING "
-"""""""""""""""""""""""
+"--------------------------------------------------------------------"
+" GENERIC SYNTAX HIGHLIGHTING                                        "
+"--------------------------------------------------------------------"
 
-hi Comment      ctermbg=black   ctermfg=darkgrey
+hi Comment      ctermbg=235   ctermfg=245
 
 " Constants
-hi Constant     cterm=NONE  ctermfg=brown
+hi Constant     cterm=NONE  ctermfg=3
 "hi String       cterm=NONE  ctermfg=brown
 "hi Number       cterm=NONE  ctermfg=brown
 "hi Boolean      cterm=NONE  ctermfg=brown
 
 " Keywords
-hi Statement    cterm=bold  ctermfg=Green
+hi Statement    cterm=bold  ctermfg=10
 "hi Conditional  cterm=bold  ctermfg=Green
 "hi Repeat       cterm=bold  ctermfg=Green
 "hi Exception    cterm=bold  ctermfg=Green
@@ -83,29 +85,37 @@ hi Type         cterm=NONE  ctermfg=green
 hi Typedef      cterm=NONE  ctermfg=brown
 
 " Identifiers
-hi Identifier   cterm=NONE  ctermfg=grey
+hi Identifier   cterm=NONE  ctermfg=254
 "hi Function     cterm=NONE  ctermfg=grey
 
 " Special
-hi Special          cterm=NONE  ctermfg=DarkGreen
+hi Special          cterm=NONE  ctermfg=34
 "hi SpecialComment   cterm=NONE  ctermfg=DarkGreen
 
-hi Todo     ctermbg=brown   ctermfg=black
+hi Todo     ctermbg=3   ctermfg=black
 
 " Pre-processor
-hi PreProc  cterm=NONE  ctermfg=Grey
+hi PreProc  cterm=NONE  ctermfg=254
 "hi Include  cterm=NONE  ctermfg=Grey
 "hi Define   cterm=NONE  ctermfg=Grey
 
-" Whitespace
-hi ExtraWhiteSpace  ctermbg=white
-:match ExtraWhiteSpace /\s\+$/
+"--------------------------------------------------------------------"
+" SPECIFIC SYNTAX                                                    "
+"--------------------------------------------------------------------"
 
+" Python
+hi pythonFunction cterm=bold ctermfg=254
+hi pythonExceptions ctermfg=254
 
-"""""""""""""""""""
-" MARKDOWN SYNTAX "
-"""""""""""""""""""
+" HTML
+hi htmlTagName ctermfg=42 cterm=bold
+hi htmlItalic ctermfg=254 ctermbg=none
+hi htmlBold cterm=bold ctermfg=254
+hi htmlBoldItalic cterm=bold ctermfg=254
 
-hi markdownCodeBlock ctermfg=grey
-hi markdownListMarker ctermfg=white
-hi markdownOrderedListMarker ctermfg=white
+" Markdown
+hi markdownCodeBlock ctermfg=254
+hi markdownCode ctermfg=41
+hi markdownListMarker ctermfg=254
+hi markdownOrderedListMarker ctermfg=254
+
