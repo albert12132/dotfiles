@@ -48,8 +48,8 @@ set noerrorbells      " No beeping
 " Dimensions
 set lines=50          " Number of rows
 set columns=80        " Number of columns
-set textwidth=70      " Virtual line width
-set colorcolumn=71,81 " Vertical ruler at 71 characters
+set textwidth=71      " Virtual line width
+set colorcolumn=72,81 " Vertical ruler at 71 characters
 
 " Information
 set showcmd           " Show (partial) command in status line.
@@ -126,6 +126,7 @@ nnoremap k          gk
 nnoremap 0          g^
 nnoremap $          g$
 nnoremap ^          g0
+nnoremap cc         :set cursorcolumn!<CR>
 
 nnoremap {          <C-u>
 nnoremap }          <C-d>
