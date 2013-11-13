@@ -7,6 +7,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.Accordion
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.MagicFocus
 
 -- Gnome config (for Unity menubar)
 import XMonad.Config.Gnome
@@ -15,6 +16,8 @@ import XMonad.Config.Gnome
 import XMonad.Util.EZConfig
 import XMonad.Prompt.Shell
 import XMonad.Prompt
+import Data.List
+import XMonad.StackSet as W
 
 -- Actions
 import XMonad.Actions.WithAll
@@ -28,9 +31,9 @@ myManageHook = composeAll (
     ])
 
 -- Layout
-myLayout = avoidStruts (tiled
+myLayout = avoidStruts (Accordion
+                        ||| tiled
                         ||| Grid
-                        ||| Accordion
                         ||| noBorders Full)
     where
         tiled = ResizableTall nmaster delta ratio []
@@ -50,12 +53,20 @@ myXPConfig = defaultXPConfig
     , font    = "-*-*-*-*-*-*-20-*-*-*-*-*-*-*"
     }
 
+isLayoutAccordion :: X Bool
+isLayoutAccordion = fmap (isSuffixOf "Accordion") $
+    gets (description . W.layout . W.workspace . W.current . windowset)
+
+myHandleEventHook =
+    fullscreenEventHook <+> followOnlyIf (fmap not isLayoutAccordion)
+
+
 -- Main
 main = xmonad $ gnomeConfig {
     manageHook = myManageHook
     , normalBorderColor = "#000000"
     , focusedBorderColor = "#00FF00"
-    , handleEventHook = fullscreenEventHook
+    , handleEventHook = myHandleEventHook
     , layoutHook = myLayout
     }
     `additionalKeysP`
@@ -69,5 +80,5 @@ main = xmonad $ gnomeConfig {
     , ("M-S-h", sendMessage MirrorExpand)        -- expand non-master
     , ("M-S-l", sendMessage MirrorShrink)        -- shrink non-master
     , ("M-S-a", killAll)                         -- close all windows
-    , ("M-'", banishScreen LowerRight)           -- banish mouse
+    , ("M-'", banishScreen UpperRight)           -- banish mouse
     ]
