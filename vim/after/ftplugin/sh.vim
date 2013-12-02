@@ -4,4 +4,3 @@ setlocal expandtab
 
 set textwidth=0
 
-let comment='#'

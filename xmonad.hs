@@ -33,7 +33,7 @@ myManageHook = composeAll (
 -- Layout
 myLayout = avoidStruts (Accordion
                         ||| tiled
-                        ||| Grid
+                        ||| Mirror tiled
                         ||| noBorders Full)
     where
         tiled = ResizableTall nmaster delta ratio []
@@ -80,5 +80,5 @@ main = xmonad $ gnomeConfig {
     , ("M-S-h", sendMessage MirrorExpand)        -- expand non-master
     , ("M-S-l", sendMessage MirrorShrink)        -- shrink non-master
     , ("M-S-a", killAll)                         -- close all windows
-    , ("M-'", banishScreen UpperRight)           -- banish mouse
+    , ("M-'", banishScreen UpperLeft)           -- banish mouse
     ]

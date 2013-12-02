@@ -16,8 +16,8 @@ let colors_name = "mint"
 " Normal should come first
 hi Normal       ctermfg=10  ctermbg=none
 hi Cursor       cterm=reverse
-hi CursorLine   term=none   cterm=none  ctermbg=238
-hi CursorColumn term=none   cterm=none  ctermbg=238
+hi CursorLine   term=none   cterm=none  ctermbg=236
+hi CursorColumn term=none   cterm=none  ctermbg=236
 
 " Window
 hi LineNr       cterm=none  ctermfg=246 ctermbg=none

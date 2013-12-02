@@ -55,7 +55,13 @@ set colorcolumn=72,81 " Vertical ruler at 71 characters
 set showcmd           " Show (partial) command in status line.
 set showmode          " Show the current mode
 set laststatus=2      " always show status line
-set statusline=%.40F%=%m\ %Y\ Line:\ %3l/%L[%3p%%]
+
+set statusline=%.27F
+set statusline+=%{FugitiveStatus()}
+set statusline+=%=
+set statusline+=%m
+set statusline+=\ %Y
+set statusline+=\ Line:\ %3l/%L[%3p%%]
 
 " Navigation
 set nu                " Set line numbering
@@ -123,30 +129,32 @@ nnoremap -          <C-W>-
 " Change cursor to move along rows, not lines. (useful for long lines)
 nnoremap j          gj
 nnoremap k          gk
-nnoremap 0          g^
-nnoremap $          g$
+nnoremap H          g^
+nnoremap L          g$
 nnoremap ^          g0
-nnoremap cc         :set cursorcolumn!<CR>
-
+nnoremap 0          g^
 nnoremap {          <C-u>
 nnoremap }          <C-d>
+nnoremap cc         :set cursorcolumn!<CR>
 
 " Remembers last place before jump
-nnoremap ''         `'
+nnoremap ''         <C-O>
 nnoremap '          `
-nnoremap g          m'g
-nnoremap G          m'G
 
 " Centers screen around cursor
 nnoremap <space>    zz
-nnoremap n          m'nzz
-nnoremap N          m'Nzz
+nnoremap n          nzz
+nnoremap N          Nzz
 
 " Tabs (navigation)
 nnoremap tt         :tabm 
 nnoremap tl         gt
 nnoremap th         gT
 nnoremap td         :tabclose<CR>
+
+" Indent/Unident quicker
+nnoremap <          <<
+nnoremap >          >>
 
 
 "--------------------------------------------------------------------"
@@ -162,10 +170,18 @@ inoremap <C-h>  <esc><C-w>h
 
 
 "--------------------------------------------------------------------"
+" "Visual Mode Bindings"                                             "
+"--------------------------------------------------------------------"
+
+vnoremap < <gv
+vnoremap > >gv
+
+"--------------------------------------------------------------------"
 " "Miscellaneous"                                                    "
 "--------------------------------------------------------------------"
 
 au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tex set filetype=tex
 
 "--------------------------------------------------------------------"
 " "Command Mode Bindings"                                            "
@@ -181,8 +197,16 @@ cnoreabbrev sH     sh
 cnoreabbrev SH     sh
 
 " Fugitive
-cnoreabbrev Gpush  Git push
-cnoreabbrev Gpull  Git pull
+nnoremap <leader>gs     :Gstatus<CR>
+nnoremap <leader>gc     :Gcommit -m "
+nnoremap <leader>gg     :Git push 
+function! FugitiveStatus()
+    let branch = fugitive#head()
+    if !empty(branch)
+        let branch = " [" . branch . "] "
+    endif
+    return branch
+endfunction
 
 "--------------------------------------------------------------------"
 " "Unite"                                                            "
@@ -193,15 +217,15 @@ let g:unite_winheight = 10
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <leader>r          :Unite -start-insert file_rec/async:!<CR>
-
-nnoremap <leader>m          :Unite file_mru<CR>
-nnoremap <leader>b          :Unite buffer<CR>
-nnoremap <leader>g          :Unite grep:.<CR>
-nnoremap <leader>y          :Unite history/yank<CR>
+nnoremap <silent><leader>f  :Unite -start-insert file_rec/async:!<CR>
+nnoremap <silent><leader>m  :Unite file_mru<CR>
+nnoremap <silent><leader>b  :Unite buffer<CR>
+nnoremap <silent><leader>s  :Unite grep:.<CR>
+nnoremap <silent><leader>y  :Unite history/yank<CR>
+nnoremap <silent><leader>r  :Unite register<CR>
 
 " Unite-outline
-nnoremap <leader>o :<C-u>Unite -start-insert outline<CR>
+nnoremap <silent><leader>o  :<C-u>Unite -start-insert outline<CR>
 
 "--------------------------------------------------------------------"
 " "Conque"                                                           "

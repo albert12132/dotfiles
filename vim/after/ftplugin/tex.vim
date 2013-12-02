@@ -1,2 +1,2 @@
-cnoremap pdf !pdflatex %
-let comment='%'
+nnoremap <leader>p  :!pdflatex %<CR>
+
