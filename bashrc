@@ -107,6 +107,7 @@ fi
 
 # PATH additions
 PATH=$PATH\:~/Scripts/
+PATH=$PATH\:~/nachos/bin/
 
 # PYTHONPATH additions
 export PYTHONPATH="Scripts/py3-lib:$PYTHONPATH"
@@ -115,7 +116,7 @@ export PYTHONPATH="Scripts/py3-lib:$PYTHONPATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # Aliases
-alias hw="cd ~/Desktop/hw/fa13; ls"
+alias hw="cd ~/Desktop/hw/sp14; ls"
 alias open="xdg-open >/dev/null 2> /dev/null"
 
 function chrome() {
@@ -127,6 +128,7 @@ function chrome() {
 
 alias cs61a="ssh cs61a-te@star.cs.berkeley.edu"
 alias cs61a-git="ssh cs61a-te@hive12.cs.berkeley.edu"
+alias cs162="ssh cs162-ds@hive12.cs.berkeley.edu"
 alias master="ssh cs61a@torus.cs.berkeley.edu"
 alias master-git="ssh cs61a@hive12.cs.berkeley.edu"
 

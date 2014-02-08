@@ -62,10 +62,10 @@ hi Title        cterm=bold,underline    ctermfg=35
 hi Underlined   cterm=bold,underline    ctermfg=41
 
 " Diff
-hi DiffAdd      ctermfg=black   ctermbg=77
-hi DiffDelete   ctermfg=black   ctermbg=160
-hi DiffChange   ctermfg=black   ctermbg=32
-hi DiffText     ctermfg=black   ctermbg=232
+hi DiffAdd      ctermfg=234   ctermbg=77 cterm=bold
+hi DiffDelete   ctermfg=160   ctermbg=none cterm=bold
+hi DiffChange   ctermfg=10   ctermbg=none
+hi DiffText     ctermfg=234 ctermbg=77 cterm=bold
 
 " Pmenu (omni completion)
 hi Pmenu        ctermbg=120   ctermfg=234
@@ -124,6 +124,7 @@ hi PreProc  cterm=NONE  ctermfg=254
 " Python
 hi pythonFunction cterm=bold ctermfg=254
 hi pythonDecorator ctermfg=41
+hi pythonNumber ctermfg=41
 hi pythonExceptions ctermfg=41
 
 " HTML

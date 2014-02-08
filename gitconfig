@@ -14,3 +14,5 @@
 	untracked = yellow
 [format]
 	pretty = format:%C(yellow)%h%Creset %C(white)%s%Creset\n%cd, %an\n
+[credential]
+	helper = cache --timeout=3600

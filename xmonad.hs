@@ -31,8 +31,8 @@ myManageHook = composeAll (
     ])
 
 -- Layout
-myLayout = avoidStruts (Accordion
-                        ||| tiled
+myLayout = avoidStruts (tiled
+                        ||| Accordion
                         ||| Mirror tiled
                         ||| noBorders Full)
     where
