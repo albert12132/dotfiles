@@ -96,7 +96,7 @@ hi Statement    cterm=bold  ctermfg=10
 " Type
 hi Type         cterm=NONE  ctermfg=green
 "hi Structure    cterm=NONE  ctermfg=brown
-hi Typedef      cterm=NONE  ctermfg=brown
+hi Typedef      cterm=NONE  ctermfg=green
 
 " Identifiers
 hi Identifier   cterm=NONE  ctermfg=254
@@ -139,3 +139,19 @@ hi markdownCode ctermfg=41
 hi markdownListMarker ctermfg=254
 hi markdownOrderedListMarker ctermfg=254
 
+" Python
+hi javaScopeDecl  ctermfg=254
+hi javaClassDecl  ctermfg=254
+hi javaType ctermfg=254
+hi javaOperator ctermfg=254
+hi javaStorageClass ctermfg=254
+hi javaTypedef ctermfg=41
+hi javaNumber ctermfg=41
+hi javaDocComment ctermfg=120 ctermbg=none
+hi javaCommentStar ctermfg=120 ctermbg=none
+
+" EasyMotion
+hi EasyMotionTargetDefault cterm=bold ctermfg=41
+hi EasyMotionTarget2Default cterm=bold ctermfg=41
+hi EasyMotionTarget2FirstDefault cterm=bold ctermfg=41
+hi EasyMotionTarget2SecondDefault cterm=bold ctermfg=41

@@ -44,6 +44,7 @@ set autoread          " auto-reads a file that was changed on disk
 set autowrite         " auto-save before commands like :next and :make
 set hidden            " Hide buffers when they are abandoned
 set noerrorbells      " No beeping
+set virtualedit=block " rectangular highlight in visual block mode
 
 " Dimensions
 set lines=50          " Number of rows
@@ -56,17 +57,19 @@ set showcmd           " Show (partial) command in status line.
 set showmode          " Show the current mode
 set laststatus=2      " always show status line
 
+" Statusline
 set statusline=%.27F
 set statusline+=%{FugitiveStatus()}
+" set statusline+=%{StatuslineCurrentHighlight()}
 set statusline+=%=
 set statusline+=%m
 set statusline+=\ %Y
-set statusline+=\ Line:\ %3l/%L[%3p%%]
+set statusline+=\ %3l/%L[%3p%%]
 
 " Navigation
 set nu                " Set line numbering
 set scrolloff=5       " keep at least 5 lines above/below
-set mouse=i           " Enable mouse usage (all modes)
+set mouse=a           " Enable mouse usage (all modes)
 set mousehide         " Hide the mouse when typing
 set cursorline        " Highlights the cursor line
 
@@ -76,6 +79,7 @@ set smartcase         " Do smart case matching
 set incsearch         " Incremental search
 set hlsearch          " highlight searches
 set showmatch         " Show matching brackets.
+set gdefault          " Set global option on for sed
 
 " Tabs (spacing)
 set expandtab         " Use spaces instead of tabs
@@ -156,6 +160,10 @@ nnoremap td         :tabclose<CR>
 nnoremap <          <<
 nnoremap >          >>
 
+" Yanking
+nnoremap Y          v$y
+nnoremap gy         "+yy
+
 
 "--------------------------------------------------------------------"
 " "Insert Mode Bindings"                                             "
@@ -175,6 +183,7 @@ inoremap <C-h>  <esc><C-w>h
 
 vnoremap < <gv
 vnoremap > >gv
+vnoremap gy "+y
 
 "--------------------------------------------------------------------"
 " "Miscellaneous"                                                    "
@@ -217,15 +226,21 @@ let g:unite_winheight = 10
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <silent><leader>f  :Unite -start-insert file_rec/async:!<CR>
+" nnoremap <silent><leader>r  :Unite -start-insert file_rec/async:!<CR>
 nnoremap <silent><leader>m  :Unite file_mru<CR>
 nnoremap <silent><leader>b  :Unite buffer<CR>
-nnoremap <silent><leader>s  :Unite grep:.<CR>
+nnoremap <silent><leader>f  :Unite grep:.<CR>
 nnoremap <silent><leader>y  :Unite history/yank<CR>
-nnoremap <silent><leader>r  :Unite register<CR>
 
 " Unite-outline
 nnoremap <silent><leader>o  :<C-u>Unite -start-insert outline<CR>
+
+" Custom mappings for unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+    nnoremap <silent><buffer><expr> s unite#do_action('right')
+    nnoremap <silent><buffer><expr> i unite#do_action('below')
+endfunction!
 
 "--------------------------------------------------------------------"
 " "Conque"                                                           "
@@ -256,10 +271,21 @@ nmap <tab> :NERDTreeTabsToggle<CR>
 let NERDTreeShowBookmarks=1     " Show bookmarks by default
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"--------------------------------------------------------------------"
-" "Indent-Guidelines"                                                "
-"--------------------------------------------------------------------"
 
-let g:indent_guides_start_level = 1
-let g:indent_guides_guide_size = 1
-nmap <leader>i      :IndentGuidesToggle<cr>
+"--------------------------------------------------------------------"
+" "EasyMotion"                                                       "
+"--------------------------------------------------------------------"
+nmap f <Plug>(easymotion-s)
+
+
+"--------------------------------------------------------------------"
+" Syntax Highlighting utility                                        "
+"--------------------------------------------------------------------"
+function! StatuslineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return '[' . name . ']'
+    endif
+endfunction
