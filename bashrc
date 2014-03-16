@@ -106,11 +106,11 @@ fi
 # PS1="\@ \w$ "
 
 # PATH additions
-PATH=$PATH\:~/Scripts/
-PATH=$PATH\:~/nachos/bin/
+PATH=$PATH\:~/scripts/
+PATH=$PATH\:~/git/nachos/nachos/bin/
 
 # PYTHONPATH additions
-export PYTHONPATH="Scripts/py3-lib:$PYTHONPATH"
+export PYTHONPATH="$HOME/scripts/py3:$PYTHONPATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -118,17 +118,11 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # Aliases
 alias hw="cd ~/Desktop/hw/sp14; ls"
 alias open="xdg-open >/dev/null 2> /dev/null"
+alias vim="gvim -v"
 
 function chrome() {
     cd /tmp
     google-chrome >/dev/null 2> /dev/null &
     cd - >/dev/null
 }
-
-
-alias cs61a="ssh cs61a-te@star.cs.berkeley.edu"
-alias cs61a-git="ssh cs61a-te@hive12.cs.berkeley.edu"
-alias cs162="ssh cs162-ds@hive12.cs.berkeley.edu"
-alias master="ssh cs61a@torus.cs.berkeley.edu"
-alias master-git="ssh cs61a@hive12.cs.berkeley.edu"
 
