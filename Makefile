@@ -30,4 +30,6 @@ git:
 
 xmonad:
 	if [ ! -d $(HOME)/.xmonad ] ; then mkdir $(HOME)/.xmonad ; fi
-	ln -s $(PWD)/xmonad.hs $(HOME)/.xmonad/xmonad.hs
+	ln -s $(PWD)/xmonad/xmonad.hs $(HOME)/.xmonad/xmonad.hs
+	sudo ln -s $(PWD)/xmonad/xmonad.session /usr/share/gnome-session/sessions/
+	sudo ln -s $(PWD)/xmonad/xmonad-unity-session.desktop /usr/share/xsessions/
