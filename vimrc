@@ -79,7 +79,6 @@ set smartcase         " Do smart case matching
 set incsearch         " Incremental search
 set hlsearch          " highlight searches
 set showmatch         " Show matching brackets.
-set gdefault          " Set global option on for sed
 
 " Tabs (spacing)
 set expandtab         " Use spaces instead of tabs
@@ -106,7 +105,6 @@ let mapleader=","
 " External Pasting and Copying options
 set pastetoggle=<C-x> " Toggles pasting mode for external paste
 nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
-vnoremap <leader>s  :s/\s\+$//<CR>
 
 
 "--------------------------------------------------------------------"
@@ -199,6 +197,7 @@ au BufRead,BufNewFile *.tex set filetype=tex
 " Aliasing accidental shifts
 cnoreabbrev W      w
 cnoreabbrev Q      q
+cnoreabbrev Qa     qa
 cnoreabbrev X      x
 cnoreabbrev sh     sh
 cnoreabbrev Sh     sh
@@ -232,9 +231,6 @@ nnoremap <silent><leader>b  :Unite buffer<CR>
 nnoremap <silent><leader>f  :Unite grep:.<CR>
 nnoremap <silent><leader>y  :Unite history/yank<CR>
 
-" Unite-outline
-nnoremap <silent><leader>o  :<C-u>Unite -start-insert outline<CR>
-
 " Custom mappings for unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -257,7 +253,7 @@ function! MyConqueTerm(term)
 endfunction
 call conque_term#register_function('after_startup', 'MyConqueTerm')
 
-nnoremap <leader>sh     :ConqueTermSplit 
+nnoremap <leader>s     :ConqueTermSplit 
 let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
 let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
 let g:ConqueTerm_PromptRegex = '^>>>'
@@ -267,9 +263,27 @@ let g:ConqueTerm_PromptRegex = '^>>>'
 " "NERDTree"                                                         "
 "--------------------------------------------------------------------"
 
-nmap <tab> :NERDTreeTabsToggle<CR>
+nnoremap <tab> :NERDTreeTabsToggle<CR>
 let NERDTreeShowBookmarks=1     " Show bookmarks by default
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
+"--------------------------------------------------------------------"
+" "GUndo"                                                            "
+"--------------------------------------------------------------------"
+
+nnoremap <leader>u :GundoToggle<CR>
+
+"--------------------------------------------------------------------"
+" "Taglist"                                                          "
+"--------------------------------------------------------------------"
+
+nnoremap <leader>o :TlistToggle<CR>
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Highlight_Tag_On_BufEnter = 1
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Sort_Type = "name"
+
 
 
 "--------------------------------------------------------------------"
@@ -279,7 +293,7 @@ nmap f <Plug>(easymotion-s)
 
 
 "--------------------------------------------------------------------"
-" Syntax Highlighting utility                                        "
+" "Syntax Highlighting utility"                                      "
 "--------------------------------------------------------------------"
 function! StatuslineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')

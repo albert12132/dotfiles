@@ -1,12 +1,12 @@
 Essentials
 ==========
-* vim
+* vim (gvim -v provides clipboard support)
 * chrome
 * git
 * python3
-* latex
-* dropbox
 * xmonad
+* dropbox
+* latex
 * pianobar (build most recent version)
 
 Programming
