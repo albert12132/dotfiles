@@ -21,6 +21,7 @@ hi CursorColumn term=none   cterm=none  ctermbg=236
 
 " Window
 hi LineNr       cterm=none  ctermfg=246 ctermbg=none
+hi CursorLineNr cterm=none  ctermfg=41 ctermbg=none
 hi ColorColumn  ctermbg=240
 hi VertSplit    cterm=bold  ctermfg=234 ctermbg=234
 
