@@ -6,8 +6,22 @@ runtime! debian.vim
 " Make Vim non-Vi compatible
 set nocompatible
 
-" Pathogen plugin manager
-execute pathogen#infect()
+" Vundle plugin manager
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'basepi/vim-conque'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'henrik/vim-indexed-search'
+Plugin 'sjl/gundo.vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-scripts/taglist.vim'
+call vundle#end() 
 
 "--------------------------------------------------------------------"
 " "Syntax and Colors"                                                "
@@ -106,6 +120,13 @@ let mapleader=","
 set pastetoggle=<C-x> " Toggles pasting mode for external paste
 nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
 
+"--------------------------------------------------------------------"
+" "Filetypes"                                                        "
+"--------------------------------------------------------------------"
+
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tex set filetype=tex
+
 
 "--------------------------------------------------------------------"
 " "Normal Mode bindings"                                             "
@@ -184,13 +205,6 @@ vnoremap > >gv
 vnoremap gy "+y
 
 "--------------------------------------------------------------------"
-" "Miscellaneous"                                                    "
-"--------------------------------------------------------------------"
-
-au BufRead,BufNewFile *.md set filetype=markdown
-au BufRead,BufNewFile *.tex set filetype=tex
-
-"--------------------------------------------------------------------"
 " "Command Mode Bindings"                                            "
 "--------------------------------------------------------------------"
 
@@ -207,7 +221,6 @@ cnoreabbrev SH     sh
 " Fugitive
 nnoremap <leader>gs     :Gstatus<CR>
 nnoremap <leader>gc     :Gcommit -m "
-nnoremap <leader>gg     :Git push 
 function! FugitiveStatus()
     let branch = fugitive#head()
     if !empty(branch)
@@ -226,7 +239,7 @@ let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " nnoremap <silent><leader>r  :Unite -start-insert file_rec/async:!<CR>
-nnoremap <silent><leader>m  :Unite file_mru<CR>
+nnoremap <silent><leader>m  :Unite -start-insert file_mru<CR>
 nnoremap <silent><leader>b  :Unite buffer<CR>
 nnoremap <silent><leader>f  :Unite grep:.<CR>
 nnoremap <silent><leader>y  :Unite history/yank<CR>
@@ -237,6 +250,22 @@ function! s:unite_settings()
     nnoremap <silent><buffer><expr> s unite#do_action('right')
     nnoremap <silent><buffer><expr> i unite#do_action('below')
 endfunction!
+
+"--------------------------------------------------------------------"
+" "Ctrl-P"                                                           "
+"--------------------------------------------------------------------"
+
+nnoremap <silent><leader>p :CtrlP<CR>
+let g:ctrlp_working_path_mode = 'ra'
+
+"--------------------------------------------------------------------"
+" "NERDTree"                                                         "
+"--------------------------------------------------------------------"
+
+nnoremap <tab> :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1     " Show bookmarks by default
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 
 "--------------------------------------------------------------------"
 " "Conque"                                                           "
@@ -258,16 +287,6 @@ let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
 let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
 let g:ConqueTerm_PromptRegex = '^>>>'
 
-
-"--------------------------------------------------------------------"
-" "NERDTree"                                                         "
-"--------------------------------------------------------------------"
-
-nnoremap <tab> :NERDTreeTabsToggle<CR>
-let NERDTreeShowBookmarks=1     " Show bookmarks by default
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-
 "--------------------------------------------------------------------"
 " "GUndo"                                                            "
 "--------------------------------------------------------------------"
@@ -283,14 +302,6 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_Highlight_Tag_On_BufEnter = 1
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Sort_Type = "name"
-
-
-
-"--------------------------------------------------------------------"
-" "EasyMotion"                                                       "
-"--------------------------------------------------------------------"
-nmap f <Plug>(easymotion-s)
-
 
 "--------------------------------------------------------------------"
 " "Syntax Highlighting utility"                                      "
