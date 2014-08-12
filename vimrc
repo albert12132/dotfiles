@@ -20,7 +20,7 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'sjl/gundo.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'vim-scripts/taglist.vim'
+Plugin 'majutsushi/tagbar'
 call vundle#end() 
 
 "--------------------------------------------------------------------"
@@ -294,14 +294,11 @@ let g:ConqueTerm_PromptRegex = '^>>>'
 nnoremap <leader>u :GundoToggle<CR>
 
 "--------------------------------------------------------------------"
-" "Taglist"                                                          "
+" "Tagbar"                                                           "
 "--------------------------------------------------------------------"
 
-nnoremap <leader>o :TlistToggle<CR>
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_Highlight_Tag_On_BufEnter = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Sort_Type = "name"
+nnoremap <leader>o :TagbarToggle<CR>
+" nnoremap <leader>o :TagbarOpenAutoClose<CR>
 
 "--------------------------------------------------------------------"
 " "Syntax Highlighting utility"                                      "
