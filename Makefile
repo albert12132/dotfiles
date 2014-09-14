@@ -1,34 +1,51 @@
 PWD=$$(pwd)
 
-.PHONY: vim bash git xmonad
+.PHONY: vim vimrc bash git xmonad
 
-all:
-	make bash
-	make vim
-	make git
-	make xmonad
-	cat programs
+#################
+# PHONY TARGETS #
+#################
 
-vim:
-	ln -s $(PWD)/vimrc $$HOME/.vimrc
-	ln -s $(PWD)/vim $$HOME/.vim
-	if [ ! -d vim/bundle ] ; then mkdir vim/bundle ; fi
-	cd vim/bundle ; \
-	for plugin in $$(cat ../plugins); do \
-		git clone $$plugin ; \
-	done; \
-	cd vimproc.vim; make
+all: bash vim git xmonad
+	@echo Programs to install:
+	@cat programs
 
+vim: $$HOME/.vimrc $$HOMe/.vim
 
-bash:
-	ln -s $(PWD)/bashrc $$HOME/.bashrc
-	ln -s $(PWD)/dircolors $$HOME/.dircolors
+vimrc: $$HOME/.vimrc
 
-git:
-	ln -s $(PWD)/gitconfig $$HOME/.gitconfig
+bash: $$HOME/.bashrc $$HOME/.dircolors
 
-xmonad:
-	if [ ! -d $$HOME/.xmonad ] ; then mkdir $$HOME/.xmonad ; fi
-	ln -s $(PWD)/xmonad/xmonad.hs $$HOME/.xmonad/xmonad.hs
-	sudo ln -s $(PWD)/xmonad/xmonad.session /usr/share/gnome-session/sessions/
-	sudo ln -s $(PWD)/xmonad/xmonad-unity-session.desktop /usr/share/xsessions/
+git: $$HOME/.gitconfig
+
+xmonad: $$HOME/.xmonad/xmonad.hs
+	# TODO: resolve the following for Ubuntu 14.04 (I don't think unity integration works)
+	# sudo ln -s $(PWD)/xmonad/xmonad.session /usr/share/gnome-session/sessions/
+	# sudo ln -s $(PWD)/xmonad/xmonad-unity-session.desktop /usr/share/xsessions/
+	
+###########
+# Targets #
+###########
+
+$$HOME/.vimrc: vimrc
+	ln -s $< $@
+	
+$$HOME/.vim: vim
+	# TODO: Clone vundle
+	ln -s $< $@
+	# TODO: make vimproc
+
+$$HOME/.bashrc: bashrc
+	ln -s $< $@
+	
+$$HOME/.dircolors: dircolors
+	ln -s $< $@
+	
+$$HOME/.gitconfig: gitconfig
+	ln -s $< $@
+	
+$$HOME/.xmonad:
+	mkdir $@
+
+$$HOME/.xmonad/xmonad.hs: xmonad/xmonad.hs $$HOME/.xmonad
+	ln -s $< $@
