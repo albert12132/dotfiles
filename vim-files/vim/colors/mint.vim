@@ -22,7 +22,7 @@ hi CursorColumn term=none   cterm=none  ctermbg=236
 " Window
 hi LineNr       cterm=none  ctermfg=246 ctermbg=none
 hi CursorLineNr cterm=none  ctermfg=41 ctermbg=none
-hi ColorColumn  ctermbg=240
+hi ColorColumn  ctermbg=236
 hi VertSplit    cterm=bold  ctermfg=234 ctermbg=234
 
 " Tabs
@@ -39,12 +39,12 @@ hi Visual       term=none   cterm=none  ctermbg=238
 hi VisualNOS    cterm=underline,bold
 
 " Folds
-hi Folded       ctermfg=255 ctermbg=none
-hi FoldColumn   ctermfg=254 ctermbg=none
+hi Folded       ctermfg=236 ctermbg=none
+hi FoldColumn   ctermfg=236 ctermbg=none
 
 " Search
 hi IncSearch    cterm=reverse
-hi Search       ctermfg=white   ctermbg=darkgrey
+hi Search       cterm=bold      ctermfg=black   ctermbg=red
 hi MatchParen   cterm=bold      ctermfg=254 ctermbg=235
 
 " Errors
@@ -107,7 +107,7 @@ hi Identifier   cterm=NONE  ctermfg=254
 hi Special          cterm=NONE  ctermfg=41
 "hi SpecialComment   cterm=NONE  ctermfg=DarkGreen
 
-hi Todo     ctermbg=83   ctermfg=black
+hi Todo     cterm=bold  ctermbg=red   ctermfg=black
 
 " Pre-processor
 hi PreProc  cterm=NONE  ctermfg=254
@@ -150,9 +150,3 @@ hi javaTypedef ctermfg=41
 hi javaNumber ctermfg=41
 hi javaDocComment ctermfg=120 ctermbg=none
 hi javaCommentStar ctermfg=120 ctermbg=none
-
-" EasyMotion
-hi EasyMotionTargetDefault cterm=bold ctermfg=41
-hi EasyMotionTarget2Default cterm=bold ctermfg=41
-hi EasyMotionTarget2FirstDefault cterm=bold ctermfg=41
-hi EasyMotionTarget2SecondDefault cterm=bold ctermfg=41

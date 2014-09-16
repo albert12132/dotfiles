@@ -10,15 +10,15 @@ all: bash vim git xmonad
 	@echo Programs to install:
 	@cat programs
 
-vim: $$HOME/.vimrc $$HOMe/.vim
+vim: $(HOME)/.vimrc $(HOME)/.vim
 
-vimrc: $$HOME/.vimrc
+vimrc: $(HOME)/.vimrc
 
-bash: $$HOME/.bashrc $$HOME/.dircolors
+bash: $(HOME)/.bashrc $(HOME)/.dircolors
 
-git: $$HOME/.gitconfig
+git: $(HOME)/.gitconfig
 
-xmonad: $$HOME/.xmonad/xmonad.hs
+xmonad: $(HOME)/.xmonad/xmonad.hs
 	# TODO: resolve the following for Ubuntu 14.04 (I don't think unity integration works)
 	# sudo ln -s $(PWD)/xmonad/xmonad.session /usr/share/gnome-session/sessions/
 	# sudo ln -s $(PWD)/xmonad/xmonad-unity-session.desktop /usr/share/xsessions/
@@ -27,25 +27,26 @@ xmonad: $$HOME/.xmonad/xmonad.hs
 # Targets #
 ###########
 
-$$HOME/.vimrc: vimrc
-	ln -s $< $@
+$(HOME)/.vimrc: vim-files/vimrc
+	ln -s $(abspath $<) $@
 	
-$$HOME/.vim: vim
-	# TODO: Clone vundle
-	ln -s $< $@
-	# TODO: make vimproc
+$(HOME)/.vim: vim-files/vim
+	ln -s $(abspath $<) $@
+	git clone https://github.com/gmarik/Vundle.vim.git $@/bundle/Vundle.vim
+	vim +PluginInstall +qall
+	cd $@/bundle/vimproc.vim; make
 
-$$HOME/.bashrc: bashrc
+$(HOME)/.bashrc: bash-files/bashrc
+	ln -s $(abspath $<) $@
+	
+$(HOME)/.dircolors: bash-files/dircolors
+	ln -s $(abspath $<) $@
+	
+$(HOME)/.gitconfig: gitconfig
 	ln -s $< $@
 	
-$$HOME/.dircolors: dircolors
-	ln -s $< $@
-	
-$$HOME/.gitconfig: gitconfig
-	ln -s $< $@
-	
-$$HOME/.xmonad:
+$(HOME)/.xmonad:
 	mkdir $@
 
-$$HOME/.xmonad/xmonad.hs: xmonad/xmonad.hs $$HOME/.xmonad
+$(HOME)/.xmonad/xmonad.hs: xmonad/xmonad.hs $(HOME)/.xmonad
 	ln -s $< $@
