@@ -98,10 +98,6 @@ fi
 # Prompt -- is set above
 # PS1="\@ \w$ "
 
-# PATH additions
-PATH=$PATH\:~/scripts/
-PATH=$PATH\:~/git/nachos/nachos/bin/
-
 # PYTHONPATH additions
 export PYTHONPATH="$HOME/scripts/py3:$PYTHONPATH"
 
@@ -109,11 +105,6 @@ export PYTHONPATH="$HOME/scripts/py3:$PYTHONPATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # Aliases
-alias open="xdg-open >/dev/null 2> /dev/null"
-
-function chrome() {
-    cd /tmp
-    google-chrome >/dev/null 2> /dev/null &
-    cd - >/dev/null
-}
+# Uncomment the following for linux
+# alias open="xdg-open >/dev/null 2> /dev/null"
 
