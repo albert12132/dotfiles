@@ -43,7 +43,7 @@ $(HOME)/.dircolors: bash-files/dircolors
 	ln -s $(abspath $<) $@
 	
 $(HOME)/.gitconfig: gitconfig
-	ln -s $< $@
+	ln -s $(abspath $<) $@
 	
 $(HOME)/.xmonad:
 	mkdir $@
