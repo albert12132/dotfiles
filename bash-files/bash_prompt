@@ -1,0 +1,73 @@
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null
+then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+else
+    color_prompt=
+fi
+
+isVirtualEnv() {
+    if env | grep -q 'VIRTUAL_ENV='
+    then
+        echo '-'
+    fi
+}
+
+isGitRepo() {
+    git status &> /dev/null
+}
+
+gitBranch() {
+    local branch=$(git branch 2> /dev/null | sed -n 's/^\* //p')
+    if [ -n "$branch" ] ; then echo $branch ; fi
+}
+
+gitStatus() {
+    local changes=$(git status --short 2> /dev/null | wc -l)
+    echo $changes
+}
+
+gitPrompt() {
+    PROMPT=
+    if isGitRepo
+    then
+        if isVirtualEnv ; then PROMPT+='-' ; fi
+        PROMPT+="(${WHITE}"'$(gitBranch)'"${NO_COLOR})"
+        PROMPT+='-($(gitStatus))'
+        PROMPT+=' '
+    fi
+    echo $PROMPT
+}
+
+
+if [ "$color_prompt" = yes ]; then
+    LIGHT_GREEN='\[\033[1;32m\]'
+    GREEN='\[\033[32m\]'
+    RED='\[\033[1;31m\]'
+    WHITE='\[\033[1;37m\]'
+    GREY='\[\033[37m\]'
+    BROWN='\[\033[0;33m\]'
+    NO_COLOR='\[\033[00m\]'
+
+    PS1=
+    PS1+="\$(echo -n \$(isVirtualEnv))"
+    PS1+="($BROWN\w$NO_COLOR)"
+    PS1+="\$(isGitRepo && \
+           echo -n \"-(${GREY}\$(gitBranch)${NO_COLOR})\"
+         )"
+    PS1+="\$(isGitRepo && \
+           if [ \"\$(gitStatus)\" = "0" ] ; then \
+           echo -n \"-(${GREEN}\$(gitStatus)${NO_COLOR})\" ; \
+           else
+           echo -n \"-(${WHITE}\$(gitStatus)${NO_COLOR})\" ; \
+           fi
+         )"
+    PS1+="$LIGHT_GREEN\$$NO_COLOR "
+else
+    PS1="\@ \w$(gitBranch)\$ "
+fi
+
+unset color_prompt force_color_prompt

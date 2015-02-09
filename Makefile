@@ -14,7 +14,7 @@ vim: $(HOME)/.vimrc $(HOME)/.vim
 
 vimrc: $(HOME)/.vimrc
 
-bash: $(HOME)/.bashrc $(HOME)/.dircolors
+bash: $(HOME)/.bashrc $(HOME)/.dircolors $(HOME)/.bash_prompt
 
 git: $(HOME)/.gitconfig
 
@@ -40,6 +40,9 @@ $(HOME)/.bashrc: bash-files/bashrc
 	ln -s $(abspath $<) $@
 	
 $(HOME)/.dircolors: bash-files/dircolors
+	ln -s $(abspath $<) $@
+	
+$(HOME)/.bash_prompt: bash-files/bash_prompt
 	ln -s $(abspath $<) $@
 	
 $(HOME)/.gitconfig: gitconfig
