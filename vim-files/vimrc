@@ -13,14 +13,15 @@ Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'basepi/vim-conque'
+Plugin 'elzr/vim-json'
 Plugin 'gmarik/Vundle.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'henrik/vim-indexed-search'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/gundo.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'majutsushi/tagbar'
 call vundle#end() 
 
 "--------------------------------------------------------------------"
@@ -70,7 +71,7 @@ set showmode          " Show the current mode
 set laststatus=2      " always show status line
 
 " Statusline
-set statusline=%.27F
+set statusline=%F
 set statusline+=%{FugitiveStatus()}
 " set statusline+=%{StatuslineCurrentHighlight()}
 set statusline+=%=
@@ -124,6 +125,7 @@ nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tex set filetype=tex
+set wildignore=*/.git/*,*.pyc
 
 
 "--------------------------------------------------------------------"
@@ -181,6 +183,13 @@ nnoremap >          >>
 nnoremap Y          v$y
 nnoremap gy         "+yy
 
+" Replace surrounded characters
+nnoremap c(          ci(
+nnoremap c[          ci[
+nnoremap c<          ci<
+nnoremap c{          ci{
+nnoremap c"          ci"
+nnoremap c'          ci'
 
 "--------------------------------------------------------------------"
 " "Insert Mode Bindings"                                             "
@@ -201,6 +210,7 @@ inoremap <C-h>  <esc><C-w>h
 vnoremap < <gv
 vnoremap > >gv
 vnoremap gy "+y
+vnoremap // y/<c-r>"<cr>
 
 "--------------------------------------------------------------------"
 " "Command Mode Bindings"                                            "
@@ -262,6 +272,7 @@ let g:ctrlp_working_path_mode = 'ra'
 
 nnoremap <tab> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1     " Show bookmarks by default
+let NERDTreeIgnore = ['__pycache__', '\.*pyc$']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 

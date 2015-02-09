@@ -39,8 +39,8 @@ hi Visual       term=none   cterm=none  ctermbg=238
 hi VisualNOS    cterm=underline,bold
 
 " Folds
-hi Folded       ctermfg=236 ctermbg=none
-hi FoldColumn   ctermfg=236 ctermbg=none
+hi Folded       ctermfg=240 ctermbg=none
+hi FoldColumn   ctermfg=240 ctermbg=none
 
 " Search
 hi IncSearch    cterm=reverse
@@ -107,7 +107,7 @@ hi Identifier   cterm=NONE  ctermfg=254
 hi Special          cterm=NONE  ctermfg=41
 "hi SpecialComment   cterm=NONE  ctermfg=DarkGreen
 
-hi Todo     cterm=bold  ctermbg=red   ctermfg=black
+hi Todo     cterm=bold  ctermfg=red  ctermbg=235
 
 " Pre-processor
 hi PreProc  cterm=NONE  ctermfg=254
@@ -137,8 +137,8 @@ hi htmlBoldItalic cterm=bold ctermfg=254
 " Markdown
 hi markdownCodeBlock ctermfg=254
 hi markdownCode ctermfg=41
-hi markdownListMarker ctermfg=254
-hi markdownOrderedListMarker ctermfg=254
+hi markdownListMarker ctermfg=150
+hi markdownOrderedListMarker ctermfg=150
 
 " Python
 hi javaScopeDecl  ctermfg=254
