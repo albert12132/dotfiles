@@ -42,6 +42,11 @@ gitPrompt() {
     echo $PROMPT
 }
 
+usingVim() {
+    local processes=`ps -T`
+    echo $processes | grep -q 'vim'
+}
+
 
 if [ "$color_prompt" = yes ]; then
     LIGHT_GREEN='\[\033[1;32m\]'
@@ -65,9 +70,12 @@ if [ "$color_prompt" = yes ]; then
            echo -n \"-(${WHITE}\$(gitStatus)${NO_COLOR})\" ; \
            fi
          )"
+    PS1+="\$(usingVim && \
+          echo -n \"-(${WHITE}vim${NO_COLOR})\" \
+          )"
     PS1+="$LIGHT_GREEN\$$NO_COLOR "
 else
-    PS1="\@ \w$(gitBranch)\$ "
+    PS1="\@ \w\$(isGitRepo && echo -n \"(gitBranch)\")\$ "
 fi
 
 unset color_prompt force_color_prompt
