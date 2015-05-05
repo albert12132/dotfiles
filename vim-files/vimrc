@@ -10,19 +10,18 @@ set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'basepi/vim-conque'
 Plugin 'elzr/vim-json'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'guns/xterm-color-table.vim'
 Plugin 'henrik/vim-indexed-search'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-Plugin 'sjl/gundo.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-fugitive'
-call vundle#end() 
+call vundle#end()
 
 "--------------------------------------------------------------------"
 " "Syntax and Colors"                                                "
@@ -63,7 +62,7 @@ set virtualedit=block " rectangular highlight in visual block mode
 
 " Dimensions
 set textwidth=71      " Virtual line width
-set colorcolumn=72,81 " Vertical ruler at 71 characters
+set colorcolumn=81    " Vertical ruler at 81 characters
 
 " Information
 set showcmd           " Show (partial) command in status line.
@@ -125,7 +124,7 @@ nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tex set filetype=tex
-set wildignore=*/.git/*,*.pyc
+set wildignore=*/.git/*,*.pyc,*bin/*,*lib/*
 
 
 "--------------------------------------------------------------------"
@@ -136,7 +135,7 @@ set wildignore=*/.git/*,*.pyc
 nnoremap ; :
 
 " Refreshes screen
-nnoremap <Enter>    :nohl<CR><C-l>
+nnoremap <Enter>    :nohl<CR><C-l><Enter>
 
 " Mapping keys for multiple windows (navigation and resizing)
 nnoremap __         :split 
@@ -152,12 +151,8 @@ nnoremap -          <C-W>-
 " Change cursor to move along rows, not lines. (useful for long lines)
 nnoremap j          gj
 nnoremap k          gk
-nnoremap H          g^
-nnoremap L          g$
-nnoremap ^          g0
-nnoremap 0          g^
-nnoremap {          <C-u>
-nnoremap }          <C-d>
+nnoremap ^          g^
+nnoremap 0          g0
 nnoremap cc         :set cursorcolumn!<CR>
 
 " Remembers last place before jump
@@ -244,27 +239,30 @@ endfunction
 let g:unite_winwidth = 30
 let g:unite_winheight = 10
 let g:unite_source_history_yank_enable = 1
+let g:unite_prompt = '-> '
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-" nnoremap <silent><leader>r  :Unite -start-insert file_rec/async:!<CR>
-nnoremap <silent><leader>m  :Unite -start-insert file_mru<CR>
-nnoremap <silent><leader>b  :Unite buffer<CR>
+nnoremap <silent><leader>m  :Unite -input= -resume -start-insert buffer file_rec/async file_mru<CR>
 nnoremap <silent><leader>f  :Unite grep:.<CR>
 nnoremap <silent><leader>y  :Unite history/yank<CR>
+nnoremap <silent><leader>o  :<C-u>Unite -vertical outline<CR>
+
+call unite#custom_source('file_rec/async,file_mru,buffer,grep',
+      \ 'ignore_pattern', join([
+      \ '\.git/',
+      \ 'lib/',
+      \ 'bin/',
+      \ '__pycache__/',
+      \ '\.d',
+      \ ], '\|'))
 
 " Custom mappings for unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-    nnoremap <silent><buffer><expr> s unite#do_action('right')
-    nnoremap <silent><buffer><expr> i unite#do_action('below')
+    nnoremap <silent><buffer><expr> <C-v> unite#do_action('right')
+    nnoremap <silent><buffer><expr> <C-x> unite#do_action('below')
+    nnoremap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
 endfunction!
-
-"--------------------------------------------------------------------"
-" "Ctrl-P"                                                           "
-"--------------------------------------------------------------------"
-
-nnoremap <silent><leader>p :CtrlP<CR>
-let g:ctrlp_working_path_mode = 'ra'
 
 "--------------------------------------------------------------------"
 " "NERDTree"                                                         "
@@ -295,19 +293,6 @@ nnoremap <leader>s     :ConqueTermSplit
 let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
 let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
 let g:ConqueTerm_PromptRegex = '^>>>'
-
-"--------------------------------------------------------------------"
-" "GUndo"                                                            "
-"--------------------------------------------------------------------"
-
-nnoremap <leader>u :GundoToggle<CR>
-
-"--------------------------------------------------------------------"
-" "Tagbar"                                                           "
-"--------------------------------------------------------------------"
-
-nnoremap <leader>o :TagbarToggle<CR>
-" nnoremap <leader>o :TagbarOpenAutoClose<CR>
 
 "--------------------------------------------------------------------"
 " "Syntax Highlighting utility"                                      "

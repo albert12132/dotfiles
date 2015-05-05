@@ -35,7 +35,7 @@ hi StatusLine   cterm=bold  ctermbg=71  ctermfg=16
 hi StatusLineNC cterm=none  ctermfg=250 ctermbg=234
 
 " Visual
-hi Visual       term=none   cterm=none  ctermbg=238
+hi Visual       term=none   cterm=none  ctermbg=71 ctermfg=16
 hi VisualNOS    cterm=underline,bold
 
 " Folds
@@ -43,7 +43,7 @@ hi Folded       ctermfg=240 ctermbg=none
 hi FoldColumn   ctermfg=240 ctermbg=none
 
 " Search
-hi IncSearch    cterm=reverse
+hi IncSearch    cterm=bold      ctermfg=black   ctermbg=red
 hi Search       cterm=bold      ctermfg=black   ctermbg=red
 hi MatchParen   cterm=bold      ctermfg=254 ctermbg=235
 
