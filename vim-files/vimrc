@@ -9,18 +9,20 @@ set nocompatible
 " Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite-outline'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'basepi/vim-conque'
-Plugin 'elzr/vim-json'
-Plugin 'gmarik/Vundle.vim'
-Plugin 'guns/xterm-color-table.vim'
-Plugin 'henrik/vim-indexed-search'
-Plugin 'scrooloose/nerdtree'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite-outline'
 Plugin 'tomtom/tcomment_vim'
-Plugin 'tpope/vim-fugitive'
+Plugin 'elzr/vim-json'
+Plugin 'henrik/vim-indexed-search'
+Plugin 'guns/xterm-color-table.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 
 "--------------------------------------------------------------------"
@@ -61,7 +63,7 @@ set noerrorbells      " No beeping
 set virtualedit=block " rectangular highlight in visual block mode
 
 " Dimensions
-set textwidth=71      " Virtual line width
+set textwidth=80      " Virtual line width
 set colorcolumn=81    " Vertical ruler at 81 characters
 
 " Information
@@ -99,6 +101,7 @@ set shiftwidth=4      " Sets >> and << width
 set autoindent
 set list              " Show hidden characters: tabs, trails
 set listchars=trail:·,tab:››
+set backspace=indent,eol,start
 
 " Folding
 set foldenable        " Enables folds
@@ -124,7 +127,7 @@ nnoremap <leader>n  :set nu!<CR>:set foldenable!<CR><C-x>
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tex set filetype=tex
-set wildignore=*/.git/*,*.pyc,*bin/*,*lib/*
+set wildignore=*/.git/*,*.pyc,*bin/*,*lib/*,*.pdf,*.aux,*.log
 
 
 "--------------------------------------------------------------------"
@@ -144,6 +147,7 @@ nnoremap <C-k>      <C-W>k
 nnoremap <C-j>      <C-W>j
 nnoremap <C-h>      <C-W>h
 nnoremap <C-l>      <C-W>l
+nnoremap <C-o>      <C-w>o
 nnoremap +          <C-W>+
 nnoremap =          <C-W>=
 nnoremap -          <C-W>-
@@ -239,13 +243,13 @@ endfunction
 let g:unite_winwidth = 30
 let g:unite_winheight = 10
 let g:unite_source_history_yank_enable = 1
-let g:unite_prompt = '-> '
+let g:unite_prompt = '> '
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <silent><leader>m  :Unite -input= -resume -start-insert buffer file_rec/async file_mru<CR>
+nnoremap <silent><leader>m  :Unite -input= -resume -start-insert buffer file_mru<CR>
 nnoremap <silent><leader>f  :Unite grep:.<CR>
 nnoremap <silent><leader>y  :Unite history/yank<CR>
-nnoremap <silent><leader>o  :<C-u>Unite -vertical outline<CR>
+nnoremap <silent><leader>o  :<C-u>Unite -vertical -start-insert outline<CR>
 
 call unite#custom_source('file_rec/async,file_mru,buffer,grep',
       \ 'ignore_pattern', join([
@@ -254,14 +258,18 @@ call unite#custom_source('file_rec/async,file_mru,buffer,grep',
       \ 'bin/',
       \ '__pycache__/',
       \ '\.d',
+      \ '\.pdf',
+      \ '\.aux',
+      \ '\.log',
       \ ], '\|'))
 
 " Custom mappings for unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
     nnoremap <silent><buffer><expr> <C-v> unite#do_action('right')
-    nnoremap <silent><buffer><expr> <C-x> unite#do_action('below')
+    nnoremap <silent><buffer><expr> <C-i> unite#do_action('below')
     nnoremap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
+    nnoremap <buffer> <Enter> <Enter>
 endfunction!
 
 "--------------------------------------------------------------------"
@@ -273,26 +281,32 @@ let NERDTreeShowBookmarks=1     " Show bookmarks by default
 let NERDTreeIgnore = ['__pycache__', '\.*pyc$']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"--------------------------------------------------------------------"
+" "Ctrl-P"                                                           "
+"--------------------------------------------------------------------"
+
+nnoremap <leader>m  :CtrlPBuffer<CR>
 
 "--------------------------------------------------------------------"
-" "Conque"                                                           "
+" "Signature"                                                        "
 "--------------------------------------------------------------------"
 
-" Conque startup configs
-function! MyConqueTerm(term)
-    " Default size of 10 rows
-    resize 10
-    " Remove whitespace indicators
-    setlocal nolist
-    " Remove colorcolumn
-    setlocal colorcolumn=
-endfunction
-call conque_term#register_function('after_startup', 'MyConqueTerm')
+let g:SignatureMap = {
+         \ 'PlaceNextMark'      :  "ma",
+         \ }
+let g:SignatureMarkOrder="\m "
+let g:SignatureMarkTextHLDynamic=1
 
-nnoremap <leader>s     :ConqueTermSplit 
-let g:ConqueTerm_SendVisKey = '<F2>'  " Copies selected test into shell
-let g:ConqueTerm_SendFileKey = '<F3>' " Copies file into shell
-let g:ConqueTerm_PromptRegex = '^>>>'
+"--------------------------------------------------------------------"
+" "Gitgutter"                                                        "
+"--------------------------------------------------------------------"
+
+nmap ga <Plug>GitGutterStageHunk
+nmap gr <Plug>GitGutterRevertHunk
+let g:gitgutter_sign_added = '+ '
+let g:gitgutter_sign_modified = '* '
+let g:gitgutter_sign_removed = '- '
+let g:gitgutter_sign_modified_removed = '*-'
 
 "--------------------------------------------------------------------"
 " "Syntax Highlighting utility"                                      "

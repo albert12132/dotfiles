@@ -17,4 +17,4 @@
 [credential]
 	helper = cache --timeout=3600
 [alias]
-    l = log --stat
+    l = log --stat --graph

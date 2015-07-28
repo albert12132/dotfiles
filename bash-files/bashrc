@@ -86,3 +86,14 @@ export PATH="/usr/local/texlive/2014/bin/x86_64-darwin:$PATH"
 # Uncomment the following for linux
 # alias open="xdg-open >/dev/null 2> /dev/null"
 
+export CLASSPATH="$CLASSPATH:/usr/local/Cellar/antlr/4.5/antlr-4.5-complete.jar"
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.5-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java org.antlr.v4.runtime.misc.TestRig'
+
+lec() {
+    echo -e "\033]50;SetProfile=Lecture\a"
+    export PS1='\w\$ '
+    alias vim='vim -c "set background=light" -c "colorscheme solarized" -c "set stl=\"f\""'
+    cd ~/lec
+    clear
+}

@@ -24,6 +24,7 @@ hi LineNr       cterm=none  ctermfg=246 ctermbg=none
 hi CursorLineNr cterm=none  ctermfg=41 ctermbg=none
 hi ColorColumn  ctermbg=236
 hi VertSplit    cterm=bold  ctermfg=234 ctermbg=234
+hi SignColumn   cterm=none ctermfg=246 ctermbg=none
 
 " Tabs
 hi TabLineSel   cterm=bold  ctermfg=16 ctermbg=71
@@ -45,7 +46,7 @@ hi FoldColumn   ctermfg=240 ctermbg=none
 " Search
 hi IncSearch    cterm=bold      ctermfg=black   ctermbg=red
 hi Search       cterm=bold      ctermfg=black   ctermbg=red
-hi MatchParen   cterm=bold      ctermfg=254 ctermbg=235
+hi MatchParen   ctermbg=white ctermfg=black
 
 " Errors
 hi ErrorMsg     cterm=bold      ctermfg=15  ctermbg=160
